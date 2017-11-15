@@ -44,6 +44,9 @@ print(a)
 '''
 
 #===============
+
+
+
 #3如何判断一个邮箱是否合法
 
 #我们可以通过内置的re正则模块进行匹配，来得到一个合法的模块
@@ -94,8 +97,18 @@ he=reduce(lambda x,y:x+y,[i for i in range(1,101)])
 print(he)
 '''
 
+#6请说明一下tuple，list，dict，set的特点：
 '''
+tuple（元组）不可变类型，有序，初始化后不可以进行修改，安全性高，可以存储大部分python数据类型，可以通过索引进行查找
+list （列表）可变类型，有序，可以存储大部分的python数据类型，可以通过索引进行查找
+dict（字典）可变类型，无序，key-value的方式存储，查找速度快，可以value可以存储大部分python数据类型，可以通过key的方式进行查找，key保证唯一性
+set（集合）可变类型，内部不存在重复元素，无序，不可以通过索引进行查找，可用来去重，交集，并集，差集
+'''
+
+
+
 #7请说明一下classmethod和staticmethod的区别
+'''
 classmethod:类方法
 staticmethod:静态方法
 在python中，静态方法和类方法都是可以通过类对象和类对象实例进行访问的，但是区别在于
@@ -128,8 +141,12 @@ Aclass.classfunc()#this is class func <class '__main__.Aclass'>
 a1.staticfunc()#this is static
 
 '''
-'''
+
+
+
+
 #8请说明迭代器与生成器的理解
+'''
 先说迭代器
 迭代器可以被__next__或者next()的对象（python一切皆对象）
 任何含有__next__方法的对象都可以称为迭代器
@@ -150,4 +167,66 @@ def fib(n):
         one,nex=nex,nex+one
 print([ i for i in fib(10)])
 
+'''
+
+#9请用python实现单粒模式，至少两种方式
+
+
+'''
+定义
+保证了一个类只有一个实例，并且提供一个访问他的全局访问点
+适用于 ：
+当类只能有一个实例而且上层代码可以从一个比较常用的访问点直接访问它
+
+优点：
+对唯一实例的受控制访问
+单例相当于全局变量，但防止了命名空间被污染
+
+
+第一种就就是在创建类的时候直接在文件底部实例话这个类
+
+# A_singleton.py
+class A():
+    def __init__(self):
+        self.name='is singleton'
+        
+a=A()
+
+from A_singleton import a
+这样在导入的时候就会始终是这个类的唯一对象，利用了python的不对同一个文件二次导入的特点
+
+第二种就比较偷懒，直接覆盖这个类
+
+class A():
+    def __init__(self):
+        self.name='is singleton'
+A=A()
+
+第三种方式
+我们可以通过__new__来控制创建过程，因为__new__是在实例话之前进行的这个特质
+
+
+class A_singleton():
+    _instance=None
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance=super(A_singleton,cls).__new__(cls,*args,**kwargs)
+        return cls._instance
+
+class Useclass(A_singleton):
+    a=1
+
+
+one=Useclass()
+two=Useclass()
+
+print(one is two)##  True
+
+print(id(one),id(two))  4330760792 4330760792
+
+'''
+
+#10就你熟悉的web框架，讲一讲如何维持用户的登陆状态
+'''
+从django上说，框架覆盖面特别广，也特别臃肿，本身在带一套session的认证机制，我们可以通过发放给浏览器cookie的方式限定session的生存周期，当用户登陆后，记录在session内，选择session的有效期，默认时间一般是两周，可以自定义。两周后删除session让用户重现登陆。这样用户就可以维护登陆状态是两周的一个session表即可
 '''
