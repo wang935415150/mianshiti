@@ -45,3 +45,22 @@ http://www.jb51.net/article/106744.htm
 
 
 '''
+import pymysql
+class Database():
+    host='localhost'
+    user='root'
+    pwd='pwd'
+    db='db'
+    charset='utf8'
+    def __init__(self):
+        self.conn=pymysql.connect(host=self.host,username=self.user,passwd=self.pwd,db=self.db,charset=self.charset)
+        self.cursor=self.conn.cursor()
+    def insert(self,query):
+        try:
+            self.cursor.execute(query)
+            self.conn.commit()
+        except Exception as e:
+            print(e)
+            self.conn.rollback()
+
+
