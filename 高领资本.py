@@ -42,9 +42,23 @@ session可以保存4kb以上的数据信息，保存在服务器端，和浏览�
 http://www.jb51.net/article/106744.htm
 原因：
 
-
-
-'''
+sql注入中最常见的就是字符串拼接，研发人员对字符串拼接应该引起重视，不应忽略。
+错误用法1：
+sql = &quot;select id, name from test where id=%d and name=&#39;%s&#39;&quot; %(id, name)
+cursor.execute(sql)
+错误用法2：
+sql = &quot;select id, name from test where id=&quot;+ str(id) +&quot; and name=&#39;&quot;+ name +&quot;&#39;&quot;
+cursor.execute(sql)
+正确用法1：
+args = (id, name)
+sql = &quot;select id, name from test where id=%s and name=%s&quot;
+cursor.execute(sql, args)
+execute()函数本身有接受sql语句参数位的，可以通过python自身的函数处理sql注入问题。
+正确用法2：
+name = MySQLdb.escape_string(name)
+sql = &quot;select id, name from test where id=%d and name=&#39;%s&#39;&quot; %(id, name)
+cursor.execute(sql)
+python模块MySQLdb自带针对mysql的字符转义函数escape_string，可以对字符串转义。
 import pymysql
 class Database():
     host='localhost'
@@ -63,4 +77,45 @@ class Database():
             print(e)
             self.conn.rollback()
 
+'''
+
+#4编写一个快速排序或者冒泡排序
+
+'''
+l=[1,2,5,6,2,7,8,3,34,85,111]
+
+def qsort(li):
+    if len(li)<=1:return li
+    temp = li[len(li)//2]
+    left=[x for x in li if x<temp]
+    middel = [x for x in li if x==temp]
+    right = [x for x in li if x> temp]
+    return qsort(left) + middel +qsort(right)
+
+def bubblesort(li):
+    for i in range(len(li)-1):
+        for j in range(len(li)-i-1):
+            if li[j] > li[j+1]:
+                li[j],li[j+1]=li[j+1],li[j]
+    return li
+'''
+
+#5写一个base62encode编码
+
+'''
+def base62encode(num):
+    base62='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghigklmnopqrstuvwxyz'
+    li=[]
+    while num>=62:
+        num,x=divmod(num,62)
+        li.insert(0,base62[x])
+    li.insert(0,base62[num])
+    return ''.join(li)
+
+print(base62encode(1))
+print(base62encode(2))
+print(base62encode(12))
+print(base62encode(62))
+print(base62encode(1222))
+'''
 
