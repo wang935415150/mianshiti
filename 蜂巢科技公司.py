@@ -4,6 +4,8 @@
 # Date: 2017/11/26
 
 #1python中基本的数据结构的操作
+
+'''
 #元祖
 tu=tuple(1,2,3)
 #列表
@@ -18,3 +20,28 @@ dic['c']=3
 dic['a']=4
 dic.pop('a')
 dic.popitem()#随机删除一组
+'''
+
+#2
+
+'''
+# （1）请尽可能的例举 a=[1,2,3,4,5],a[::2]=?,a[-2:]=?
+a=[1,2,3,4,5]
+a[::2]#步长为2结果就是1,3,5
+a[-2:]#从最后一个开始数结果是4，5,这是不一样的因为之后-1么有-0的索引方式
+#（2）一行代码实现队列表a中的偶数位置的元素进行加3后求和
+a=[1,2,3,4,5,6]
+
+c=sum(map(lambda x:x+3,a[::2]))
+print(c)
+'''
+
+#3
+li=[-2,1,3,-6]
+def absfull(li):
+    for  i in range(len(li)-1):
+        for j in range(len(li)-1-i):
+            if abs(li[j])>abs(li[j+1]):
+                li[j],li[j+1]=li[j+1],li[j]
+    return li
+print(absfull(li))
