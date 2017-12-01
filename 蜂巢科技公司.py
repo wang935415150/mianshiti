@@ -55,7 +55,8 @@ a.sort()#是直接修改了原来的列表返回值是None
 sorted(a)#不修改原来的列表，返回一个新的列表
 '''
 
-#4统计一个文本a.txt中的单词数量并且返回其中最高的是个
+#4统计一个文本a.txt中的字符串中单词数量并且返回其中最高的10个
+'''
 dic=dict()
 with open('a.txt','r',encoding='utf-8') as f:
     a=f.read()
@@ -65,6 +66,7 @@ with open('a.txt','r',encoding='utf-8') as f:
     f=zip(dic.values(),dic.keys())
     f=sorted(f)
     print(f[-10:])
+'''
 
 
 
