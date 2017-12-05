@@ -2,7 +2,12 @@
 # -*- coding: utf-8 -*-
 # __author__ = "YGZBxia"
 # Date: 2017/12/1
+'''
+61题750行重要
+跳过了18页太他妈难了
 
+
+'''
 #1如何实现对python列表去重并保持原先顺序
 '''
 li=['a','w','c','d','a']
@@ -499,4 +504,577 @@ copy.deepcopy()是深拷贝，将对象整个复制一份然后进行使用
 装饰器和已通过@甜品符号进行调用
 也可以x=fun（x）然后在x()进行调用
 '''
+#33 python里面match()和search()的区别
+'''
+match从头开始匹配如果头部不是的话就会返回None
+search 从任意位置匹配，如果没有返回None
+'''
+
+#34 获取list的元素个数，和像末尾追加元素所用的方法分别是
+'''
+count获取个数
+append在末尾添加一个元素
+'''
+
+#35 判断dict有没有某个元素key的方法是
+'''
+    dict[a]
+    dict.get(a)
+'''
+#36 l=range(100),
+'''
+取第一个到第三个元素用l[0:3]
+取倒数第二个元素l[-2]
+取后10个元素用l[-1:-11]
+
+l=range(100)
+print(l[0:3])
+for i in l[:-11:-1]:
+    print(i)
+print(l[-2])
+如果要复制一份并且是非引用传递的话 copy.copy()
+
+'''
+#37请打印户key，value对
+'''
+d = {'a':1,'b':2,'c':3}
+set1=()
+for i,v in d.items():
+    print(i,v)
+'''
+
+#38如何判定一个变量是不是字符串
+'''
+c="a"
+print(isinstance(c,str))
+'''
+
+#39list和tuple有什么不同
+'''
+tuple：不可变类型，
+list ：可变类型
+'''
+
+#40 xrange和range有什么不同
+'''
+print(type(range(10))) 
+print(type(xrange(10)))#python三没有xrange 同样也没有range因为python3的range就是python2的xrange
+python2 的range返回一个列表，python2的xrange返回一个xrange对象是可迭代的
+'''
+
+#41'1,2,3'变成['1','2','3']
+'''
+x='1,2,3'
+c=x.split(',')
+print(c)
+
+['1','2','3']变成[1，2，3]
+for i in range(len(c)):
+    c[i]=int(c[i])
+print(c)
+
+
+list(map(int,['1','2','3']))
+'''
+#42
+'''
+def add_end(L=[]):
+    L.append('END')
+    return L
+print(add_end())#['END']
+print(add_end())#['END', 'END']
+#型参陷阱，因为在函数执行自后列表不清空
+
+'''
+#43写一个快拍
+'''
+def fun(li):
+    if len(li) <=1 :return li
+    temp=li[len(li)//2]
+    left = [ i for i in li if i <temp]
+    middel=[ i for i in li if i ==temp]
+    right = [i for i in li if i >temp]
+    return fun(left) + middel +fun(right)
+
+c=fun([36,5,12,8,21])
+print(c)
+'''
+
+#44函数中*args和**kwargs的作用
+'''
+接收为被定义的未知参数和关键参数
+'''
+
+#45 is和==的区别是
+'''
+is是判断两个变量的id地址是否相同
+==是仅仅判断两个变量的值是否相等
+'''
+
+#46如何生成一个[1，4，9，16，25，36，49]的函数
+'''
+print([x*x for x in range(1,11)])
+
+'''
+
+#47生成器是什么，有什么作用，写一个生成器
+
+'''
+python中一个通过yield返回的函数就是生成器
+生成器是一个可迭代的对象，省内存空间，惰性在调用时候才会生成值
+
+def x():
+    for i in range(100):
+        yield i
+'''
+
+#48map (str,[1,2,3,4,5,6])输出什么
+'''
+map(str,[1,2,3,4,5,6])#会输出一个map对象<map object at 0x104102400>
+print(map(str,[1,2,3,4,5,6]))
+'''
+#49 请写出log的实现（主要更能是打印函数名）
+'''
+@log
+def now():
+    print('2013-11-22')
+
+>>>now()
+输出:
+call now()
+2013-12-22
+
+
+def log(func):
+    def inner(*args,**kwargs):
+        print('call %s() ' %func.__name__)
+        c=func()
+        return c
+    return inner
+@log
+def now():
+    print('2012-11-11')
+
+now()
+'''
+
+#50 怎么取定义一个函数
+'''
+def <name>(arg1,arg2...argn)
+'''
+
+#51 python在linux下创建一个子进程的方法
+'''
+os.fork()
+os.popen() 方法用于从一个命令打开一个管道。
+os.system 是执行操作系统终端的方法
+os.link() 创建链接，将一个长的文件路径与林一个短的路径进行转换
+'''
+#52 已知x=43，ch="A",y=1,则表达式(x>=y and ch<'B' and y)的值是
+'''
+x=43
+ch="A"
+y=1
+
+print(x>=y and ch<"B" and y)#1
+# > = <优先级高于 not and or
+
+'''
+
+#53
+'''
+字符编码中 0～9 A～Z a～z的顺序排列所以'abc'>'xyz'
+python3 (3,2)<('a','b')是会报错的，但是python2就是True
+'''
+
+#54
+'''
+    python支持的数据类型有
+        int整形 float浮点型 list列表 dict字典 tuple元祖 set集合 str字符串
+'''
+#55
+'''
+int不可以转换非数字字符串 "abcd"
+(' " ')这种方式都不可以转化
+'''
+
+#56可以输出1，2，3结果的是
+'''
+a=[0,1,2]
+for i in a:
+    print(i+1)
+
+for i in range(3):
+    print(i+1)
+'''
+
+#57一下函数需要其中引入一个全局变量k，请填写语句：
+'''
+k=1
+def fun():
+    global k
+    k=k+1
+fun()
+print(k)
+'''
+#58 请把一下函数转化为python的lambda匿名函数：
+'''
+def add(x,y):
+    return x+y
+
+x=lambda x,y:x+y
+'''
+
+#59 请简单解释python中的static method 和class method并补充完整
+'''
+staticmethod静态方法是封装在类中不需要调用类里面的任何参数，直接通过类调用或者对象调用
+classmethod类方法，是传入的是类可以通过类调用不能通过对象调用
+
+class A():
+    def foo(self,x):
+        print('foo %s' %x)
+    @classmethod
+    def class_foo(cls,x):
+        print('class_foo %s' %x)
+    @staticmethod
+    def static_foo (x):
+        print('static_foo %s' %x)
+
+a=A()
+如何调用static_foo方法穿参数
+a.static_foo('a')
+如何调用class_foo方法调用
+A.class_foo('x')
+如果直接调用foo
+A.foo(a,'x')
+a.foo('x')
+'''
+
+#60
+'''
+情书写一个函数，用于替换某个字符串的一个或几个字符,实现str的replace
+
+
+def replse(li,str1,str2):
+    import re
+    return re.sub(r'{0}'.format(str1),str2,li)
+li='hellow name'
+print(replse(li,'name','word'))
+'''
+#61python实现单例模式
+'''
+# danli.py 写一个类并实例话
+
+#第二种
+class A():
+    _instance=None
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance=super(A,cls).__new__(cls,*args,**kwargs)
+        return cls._instance
+
+a=A()
+b=A()
+
+
+class Singleton(type):
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+# Python2
+# class MyClass(object):
+#     __metaclass__ = Singleton
+# Python3
+class MyClass(metaclass=Singleton):
+   pass
+'''
+#62什么事lambda函数：
+'''
+匿名函数，不会脏到名称空间，可以和map，zip等内置函数联合使用，用一次就会抛弃掉
+lambda x：x*3
+
+其中冒号前面的x代表型参 ，冒号代表return
+冒号后面代表运行体
+'''
+
+#63请写出一段python 代码实现删除一个list里面的重复元素
+'''
+def deletelist(li):
+    for i in li:
+        while li.count(i)>1:
+            li.remove(i)
+    return li
+li = [1,2,3,4,5,5,5,6,6,7,7]
+'''
+
+#64如何用python删除一个文件
+'''
+import os
+os.remove()删除一个文件
+os.removedirs()如果里面有文件则递归删除这个文件夹
+os.rmdir()删除一个文件夹要求里面不能有文件
+'''
+
+#65python生成随机数
+'''
+import random
+print(random.random())#生成0到1的小数
+print(random.randint(1,20))#生成一个1到20的整数
+'''
+#66如何在def里面设置一个全局变量
+'''
+global k
+'''
+#67介绍一下except的用法何作用
+'''
+try:
+    map()
+except Exception as e:
+    print(e)
+
+如果try捕获到了错误，那么执行except的函数
+'''
+
+#68请用python写一下获取用户输入数字，并根据输入数字大小输出不同信息的脚本
+"""
+while True:
+    a=input('''
+请输入一个
+''')
+    if isinstance(a,int):
+        print('请输入数字')
+        continue
+    elif int(a) >10:
+        print('超出范围')
+        continue
+    elif int(a)<10:
+        print('输入过小')
+        continue
+    else:
+        print('输入正确')
+        break
+"""
+#69 range和xrange区别：
+'''在python2中 range返回一个列表而xrange返回一个可迭代的xrange对象'''
+
+#70 解释生成器与函数的不同，并实现和使用简单的生成器：
+'''
+生成器也是一个函数，不过是通过yield进行返回而不是通过return进行返回这是最明显的一个特点,会在yield的时候进行截断需要通过__next__才能进行下去
+
+def x():
+    for i in range(10):
+        yield i
+
+for i in x():
+    print(i)
+    
+'''
+#71输入一个字符串，返回倒序排列的结果：如'abcdef'，返回'fedcba'
+'''
+s='abcdef'
+print(s[::-1])
+'''
+
+#72请用自己的算法，按照生序合并如下两个list，并去除重复元素：
+'''
+li1=[2,3,8,4,9,5,6]
+li2=[5,6,10,17,11,2]
+
+def qsort(li):
+    if len(li) <=1 : return li
+    temp = li[len(li)//2]
+    left= [x for x in li if x<temp ]
+    model=[x for x in li if x == temp]
+    right=[x for x in li if x>temp]
+    return qsort(left) + model + qsort(right)
+
+def quchong(li):
+    for i in li :
+        while li.count(i) >1:
+            li.remove(i)
+    return li
+
+def panxuquchong(li1,li2):
+    li=li2+li1
+    li=quchong(li)
+    li=qsort(li)
+    return li
+
+print(panxuquchong(li1,li2))
+'''
+#73 django中如何在Model保存前做一定的固定操作，比方说写入log：
+'''
+Django提供一种信号机制。其实就是观察者模式，又叫发布-订阅(Publish/Subscribe) 。当发生一些动作的时候，发出信号，然后监听了这个信号的函数就会执行。
+大体有23个信号
+常用的有 在Model操作前 pre_save
+        在Model操作后 post_save
+        
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from myapp.models import MyModel
+
+
+@receiver(pre_save, sender=MyModel)
+def my_handler(sender, **kwargs):
+    print('我们要做的保存log')        
+'''
+
+#73python中，元祖和列表的主要区别是 ：列表是可变数据类型，元祖是不可变数据类型
+
+#74 排好序的列表alist和字符串char，表示alist中存在char1则返回False，不存在返回True的表达式
+
+'''
+alit=['a','b','c']
+char1='c'
+c= False if char1 in alit else True
+print(c)
+'''
+
+#75 列表变量alist，将alist分别赋予给maxvale和minValue的表达式；
+'''
+li1=[1,2,3,4,5]
+maxvale,minValue = max(li1),min(li1)
+print(maxvale,minValue)
+'''
+
+#76 列表
+'''
+li1=[{'a':5,"b":2},{'a':2,"b":8},{'a':8,"b":2}]
+# 请写出以建"a"的值对li1进行排序操作
+print(sorted(li1,key=lambda x:x['a']))
+'''
+#77阅读以下代码然后写出程序的结果
+'''
+my_dict={'a':0,'b':1}
+def func(d):
+    d['a']=1
+    return d
+func(my_dict)
+my_dict['c']=2
+print(my_dict)# {'a':1,'b':1,'c':2}
+'''
+
+#78下面列表输出结果为
+'''
+li1=[2,4,5,6,7]
+for var in li1:
+    if (var % 2) == 0:
+        li1.remove(var)
+
+print(li1)#[4,5,7]
+'''
+
+#79求列表li1和列表li2的交集表达式：
+'''
+li1=[1,2,3,4]
+li2=[2,3,4,5]
+print([i for i in li1 if i in li2])
+'''
+
+#80不依赖中间变量，交换变量a和b值的表达式：
+'''
+a=1
+b=2
+a,b=b,a
+'''
+
+#81现有列表 li=[3,1,-4,2]按其元素的绝对中大小进行排序的表达式：
+'''
+li=[3,1,-4,2]
+print(sorted(li,key=lambda x:abs(x)))
+'''
+#82写出下面代码输出的结果是:
+
+'''
+n=5
+print(-n)#-5
+'''
+#83python是一门解释性语言，面向对象的语言，高级语言，可移植，可拓展
+
+#84哪个pep涉及到了代码规范pep8
+
+#85 django，flask，tornado，web。py
+
+#86有函数定义如下
+'''
+def ca(a,b,c,d=1,e=2):
+    return (a+b)*(c-d) +e
+
+print(ca(1,2,3,4,5))#2
+print(ca(1,2,3))#8
+# print(ca(1,2))#报错
+print(ca(1,2,3,e=4))#10
+print(ca(e=4,c=5,a=2,b=3))#24
+# print(ca(1,2,3,d=5,4))#直接报错
+'''
+
+#87 3<4<5是什么的缩写 3<4 and 4<5的缩写
+
+#88 获取python解释器版本的方法是
+'''
+import sys
+sys.version
+'''
+
+#89如果是被倒入的模块，模块点__name__的值是,当前文件名称 ,如果该模块内__name__那么是__main__
+
+#90python的内存管理中，为了追踪内存中的对象，使用了
+'''
+Python引入了一个机制：引用计数。
+python内部使用引用计数，来保持追踪内存中的对象，Python内部记录了对象有多少个引用，即引用计数，当对象被创建时就创建了一个引用计数，当对象不再需要时，这个对象的引用计数为0时，它被垃圾回收。
+'''
+
+#91python的c语言解释器是cpython，python的java叫jython
+
+#92python中，能直接显示释放内存的资源
+'''
+import gc
+1.gc.set_debug（flags）设置gc的debug日志，一般设置为gc.DEBUG_LEAK
+2.gc.collect([generation])显式进行垃圾回收，可以输入参数，0代表只检查第一代的对象，1代表检查
+一，二代的对象，2代表检查一，二，三代的对象，如果不传参数，执行一个full collection，也就是等于传2.
+返回不可达（unreachable objects）对象的数目
+3.gc.get_threshold()获取的gc模块中自动执行垃圾回收的频率
+4.gc.set_threshold(threshold0[,threshold1[,threshold2])设置自动执行垃圾回收的频率
+5.gc.get_count()获取当前自动执行垃圾回收的计数器，返回一个长度为3的列表
+'''
+
+#93 以下代码将输出什么
+'''
+li=['a','b','c','d']
+print(li[10:]) #[]
+'''
+
+#94与 16体重复了
+
+'''
+list2=extendleis('a',[])
+
+'''
+
+#95
+'''
+数组
+nums = [2,7,11,15] 目标是9
+返回 [0,1]索引
+
+
+nums = [2,7,11,15]
+num=13
+def fun(li,ints):
+    mins=0
+    maxs=len(li)-1
+    for i in range(len(li)):
+        if (li[mins]+li[maxs]) == ints:
+            return [mins ,maxs]
+        elif (li[mins]+li[maxs])>ints:
+            maxs-=1
+        else:
+            mins+=1
+    return None
+print(fun(nums,num))
+
+'''
+
 
