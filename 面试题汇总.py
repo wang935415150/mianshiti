@@ -5,7 +5,7 @@
 '''
 61题750行重要
 跳过了18页太他妈难了
-
+第21页的最后有一个题最后写
 
 '''
 #1如何实现对python列表去重并保持原先顺序
@@ -1132,8 +1132,249 @@ GIL是cpython解释器才存在的，他是一种考虑到线程安全的安全�
 '''
 
 #102写一个斐波那契饿:1,2,3,5,8,13
+'''
 x=0
 y=1
 z=0
 for i in range(100):
-    print(y)
+    if y >=4000000:
+        print('四百万前是 %s' %y)
+        print('索引为 %s' %i)
+        break
+    z=x
+    x=y
+    y=z+x
+四百万前是 5702887
+索引为 33
+    '''
+#103两个字典相加相同的key保留相加后的值不同的key保留
+'''
+dic1={'a':1,"b":2,"c":3,'d':4,'f':'hellow'}
+dic2={'b':3,'d':5,'e':7,'m':9,'k':'world'}
+
+dictc={}
+for i in dic1:
+    if i in dic2:
+        dictc[i]=dic1[i]+dic2[i]
+    else:
+        dictc[i]=dic1[i]
+for i in dic2:
+    if i not in dictc:
+        dictc[i]=dic2[i]
+print(dictc)
+
+def hebing(dic1,dic2):
+    for i in dic1:
+        if i in dic2:
+            dic2[i]=dic1[i]+dic2[i]
+        else:
+            dic2[i]=dic1[i]
+    return dic2
+'''
+#104海滩上有一堆桃子，共5个猴子第一个猴子分成5份多一个，扔到拿走一份，第二个猴子将剩下的部分分成5份后多一个丢掉，以此类推请问最后需要多少桃子
+'''
+分析：如果说每一次都扔到一个的话，证明每一次都缺少4个才能正确平分成5份，所以开始多给4个桃子，那么就能是被5整除的数字了，但是在第一只猴子拿走后我们多给了4个桃子所以要拿回来，这样给四个再拿走四个就可以保证每次都是被5整除，在最后一次平分的时候我们就做一次减四就好
+
+def houzifentao(x):
+    return x**5-4
+'''
+
+#105编程实现小程序，给出罗马数字，先判断是否是罗马数字，如果是，转换为阿拉伯数字
+#
+
+#106
+'''
+class Ob():
+    x=1
+class Ob1(Ob):
+    pass
+class Ob2(Ob):
+    pass
+
+print(Ob.x,Ob1.x,Ob2.x)
+Ob1.x=2
+print(Ob.x,Ob1.x,Ob2.x)
+Ob.x=3
+print(Ob.x,Ob1.x,Ob2.x)
+1 1 1
+1 2 1
+3 2 3
+'''
+#107
+'''
+def m():
+    return [lambda x:i*x for i in range(4)]
+print([c(2) for c in m()])#6,6,6,6
+
+def m():
+    return (lambda x:x*i for i in range(4))
+print([c(2) for c in m()])#0,2,4,6
+'''
+
+#108相隔为10的区间总共21个区间输入一数字确认等级：
+'''
+def fun(x):
+    if x==0:
+        print('请输入大于0的数字')
+        return
+    elif x>200:
+        print('当前等级：21')
+        return
+    c,v=divmod(x,10)
+    if v:
+        print('当前的区间是：%s' % (x // (10 ) + 1))
+        return
+    else:
+        print('当前的区间是：%s' % (x // 10 ))
+        return
+fun(199)
+'''
+#109
+'''
+data={
+    'time':'2016-08-05',
+    'some_id':'ID1234',
+    'grp1':{
+        'fld1':1,
+        'fld2':2
+    },
+    'xxx2':{'fld3':0,'fld5':0.4},
+    'fld6':11,
+    'fld7':7,
+    'fld46':8}
+fields='fld2|fld3|fld7|fld19|fld5'
+
+print(fields.split('|'))
+
+def dict_get(data, objkey,defult):
+    tmp = data
+    for k,v in tmp.items():
+        if k == objkey:
+            return v
+        else:
+            if isinstance(v,dict):
+                ret = dict_get(v,objkey,defult)
+                if ret is not defult :
+                    return ret
+    return defult
+
+def select(data,fields,defult=[]):
+    result={}
+    for i in fields.split('|'):
+        v=dict_get(data,i,defult)
+        if v!=defult:
+            if v==False:
+                result[i]=int(v)
+            else:
+                result[i]=v
+    return result
+
+print(select(data,fields))
+
+'''
+
+#110:从输入一个网址到页面返回，中间经历了什么？
+'''
+1。 用户输入url
+2。浏览器进行缓存检查
+3。检查是否过期，如果不过期那么展示给用户发送302
+4。如果过期了，那么通过dns解析
+5。发送给解析后的ip进行tcp链接
+6。服务器根据请求调取模版，数据库
+7。在服务器进行封包 发送给浏览器
+8。浏览器接收数据：
+9。判定状态码
+10。（200）浏览器进行dom树生成，css渲染，js交互
+11。如果有ajax再次进行访问
+12。完成
+'''
+#111：http协议状态吗有什么用，列出你知道的http协议的状态吗
+'''
+1XX系列：指定客户端应相应的某些动作，代表请求已被接受，需要继续处理。由于
+HTTP / 1.0协议中没有定义任何1xx状态码，所以除非在某些试验条件下，服务器禁止向此类客户端发送1xx响应。
+2XX系列：代表请求已成功被服务器接收、理解、并接受。这系列中最常见的有200、201状态码。
+200状态码：表示请求已成功，请求所希望的响应头或数据体将随此响应返回
+201状态码：表示请求成功并且服务器创建了新的资源，且其URI已经随Location头信息返回。假如需要的资源无法及时建立的话，应当返回'202 Accepted'
+202状态码：服务器已接受请求，但尚未处理
+3XX系列：代表需要客户端采取进一步的操作才能完成请求，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的Location域中指明。这系列中最常见的有301、302状态码。
+301状态码：被请求的资源已永久移动到新位置。服务器返回此响应（对GET或HEAD请求的响应）时，会自动将请求者转到新位置。
+302状态码：请求的资源临时从不同的URI响应请求，但请求者应继续使用原有位置来进行以后的请求
+304自从上次请求后，请求的网页未修改过。服务器返回此响应时，不会返回网页内容。 如果网页自请求者上次请求后再也没有更改过，您应将服务器配置为返回此响应(称为If - Modified - SinceHTTP标头。
+4XX系列：表示请求错误。代表了客户端看起来可能发生了错误，妨碍了服务器的处理。常见有：401、404
+状态码。
+401状态码：请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应。
+403状态码：服务器已经理解请求，但是拒绝执行它。与401响应不同的是，身份验证并不能提供任何帮助，而且这个请求也不应该被重复提交。
+404状态码：请求失败，请求所希望得到的资源未被在服务器上发现。没有信息能够告诉用户这个状况到底是暂时的还是永久的。假如服务器知道情况的话，应当使用410状态码来告知旧资源因为某些内部的配置机制问题，已经永久的不可用，而且没有任何可以跳转的地址。404
+这个状态码被广泛应用于当服务器不想揭示到底为何请求被拒绝或者没有其他适合的响应可用的情况下。
+5xx系列：代表了服务器在处理请求的过程中有错误或者异常状态发生，也有可能是服务器意识到以当前的软硬件资源无法完成对请求的处理。常见有500、503
+状态码。
+500状态码：服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。一般来说，这个问题都会在服务器的程序码出错时出现。
+503状态码：由于临时的服务器维护或者过载，服务器当前无法处理请求。通常，这个是暂时状态，一段时间会恢复了解基本SEO状态码，是SEO优化人员必备知识。HTTP状态码是服务器和客户端之间交流信息的语言。通过查看网站日志的HTTP码，我们可以清楚查看搜索引擎在网站的爬取情况。
+'''
+
+#112python主要内置数据类型有哪些，可以变和不可变有什么区别
+'''
+不可变类型：(str,tuple,int)
+可变类型:(set,dict,list)
+id比可以变，但是值可以变就是最大的区别
+
+'''
+
+#113python中如何抛出异常，捕获，处理异常
+'''
+raise 主动抛出异常
+try捕获一段代码中的异常
+except:负责处理收到的异常异常 
+'''
+
+#114给定两个列表，找出相同元素和不同元素，可以打乱顺序
+'''
+a = t | s          # t 和 s的并集  
+  
+b = t & s          # t 和 s的交集  
+  
+c = t – s          # 求差集（项在t中，但不在s中）  
+  
+d = t ^ s          # 对称差集（项在t或s中，但不会同时出现在二者中）
+'''
+#115给定一个3g文件，每一行是酒店id和图片的名字，中间用'\t'分割，要求输出照片数量分别是[10,20],[5,10],[0,5]的三个列表
+
+'''
+def read_text():
+    dic={}
+    for i in open('a.txt','r'):
+        host_id,jpeg=i.split(r'\t')
+        if host_id in dic:
+            dic[host_id]+=1
+        else:
+            dic[host_id]=1
+            
+    lis1=[]
+    lis2=[]
+    lis3=[]
+    lis4=[]
+    for k,v in dic.items():
+        if v<5:
+            lis1.append(k)
+        elif 5<=v<10:
+            lis2.append(k)
+        elif 10<=v<20:
+            lis3.append(k)
+        else:
+            lis4.append(k)
+    with open('b.txt','w') as f:
+        f.write('图片数量小于5的宾馆ID：')
+        for i in lis1:
+            f.write(i)        
+        f.write('图片数量在5到9的宾馆ID：')
+        for i in lis2:
+            f.write(i)        
+        f.write('图片数量在10到19的宾馆ID：')
+        for i in lis3:
+            f.write(i)        
+        f.write('图片数量大于19的宾馆ID：')
+        for i in lis4:
+            f.write(i)
+'''
+
+
