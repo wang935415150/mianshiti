@@ -6,7 +6,7 @@
 61题750行重要
 跳过了18页太他妈难了
 第21页的最后有一个题最后写
-
+简单实现一个stack
 '''
 #1如何实现对python列表去重并保持原先顺序
 '''
@@ -1377,4 +1377,202 @@ def read_text():
             f.write(i)
 '''
 
+#116什么是lambda函数，他有什么好处，另外python在函数时编程方面提供了些什么函数和语法
+'''
+匿名函数,
+好处：不会脏到名称空间，可以用完就扔掉
 
+map函数
+abs函数求绝对值
+cmp比大小
+divmod求余数和
+进制转换函数
+filter函数删选
+zip函数拉链
+反射函数
+hasattr
+getattr
+求最大值max，最小值min
+'''
+
+#117详细说明tuple、list、dict的用法他们的特点
+'''
+tuple不可变类型，元祖，生成后里面的值不可以修改
+list列表可变类型，生成后里面值可以修改，
+这两个都可以切片，但是元祖不可以替换
+dict字典，通过key：value的方式储存数据，查询速度快，可变类型，通过get或者[]取值，内置__getitem__方法
+'''
+
+#118pyton中装饰器，迭代器的用法，描述下dict的items和iteritems方法的不同
+'''
+python的装饰器是在不该变原有的代码，和调用方式的基础上，对代码添加新的功能】通过@甜品符加上装饰器的名字进行使用，第二种方式是通过 函数名=装饰器（函数名）
+python的迭代器可以通过for循环调用，也可以next()也可以迭代器__next__的方式使用
+、
+
+items返回的是（key，value）
+iteritems返回的是iter对象
+'''
+#119讲讲对unicode,gbk,utf-8等的理解，python2是如何处理编码问题额
+'''
+unicode相当于翻译官将gbk通过unicode转换成utf-8也可以反过来转换
+python2处理编码
+都是讲其他编码转换成unicode进行处理，输出在进行转换
+'''
+
+#120python进行内存管理的，python的程序会内存泄漏吗，说说有没有什么方法防止或者检测内存泄漏
+'''
+python通过引用计数进行内存管理，如果计数为0那么释放内存，
+python会存在内存泄漏的
+
+避免方式：减少全局变量的定义，分散引用，通过一个变量减少多次引用，减少死循环
+
+检测工具：objgraph
+'''
+
+#121在python程序的运行方面，有什么能够提升性能：
+
+'''
+1：sum函数尽量处理啊大数量级数据
+2：合理的使用yield
+3：尽量使用dict和set进行查找
+4：尽量使用divmod
+'''
+#122list对象按照age进行由大到小排序
+'''
+alist=[{'name':'a','age':20},{'name':'b','age':30},{'name':'c','age':25}]
+
+c=sorted(alist,key=lambda x:x['age'],reverse=True)
+print(c)
+'''
+#123 两个list对象，合并去重
+'''
+lis1=['a','b','c','d','e','f']
+lis2=['x','y','z','d','e','f']
+endlis=list(set(lis1+lis2))
+print(endlis)
+'''
+
+#124 打乱一个排好序的list对象
+'''
+import random
+li=[1,2,3,4,5,6,7,7,4]
+li=random.shuffle(li)
+'''
+
+#125 简单实现一个stack
+
+#126输入某年某月末日，判断这一天是这一年的第几天（）
+'''
+import datetime
+
+year=int(input('输入年'))
+moun=int(input('输入月'))
+day = int(input('输入日'))
+
+nowdata=datetime.date(year,moun,day)
+f=nowdata-datetime.date(nowdata.year-1,12,31)
+print('是{0}年的第{1}天'.format(nowdata.year,f.days))
+'''
+#127将字符串：'k:1|k1:2|k2:3|k3:4',处理成字典
+'''
+li='k:1|k1:2|k2:3|k3:4'
+nowli=li.split('|')
+dic={}
+for i in nowli:
+    k,v=i.split(':')
+    dic[k]=v
+print(dic)
+'''
+
+#128 描述一下对pyton中数据类型列表，字典，元祖的理解
+'''
+列表list
+
+可以包含不同类型的对象，可以增减元素，可以跟其他的列表结合或者把一个列表拆分，用[]来定义的 eg:aList=[123,’abc’,4.56,[‘inner’,’list’],7-9j] 
+方法 
+1.list(str):将str转换成list类型，str可以使字符串也可以是元组类型 
+2.aList.append(‘test’):追加元素到列表中去 
+3.del aList[1]:删除列表中下标为1的元素 del aList:删除整个列表 
+4.cmp(list1,list2):比较两个列表的大小 
+6.sorted(list):使用字典序对列表中元素进行排序 
+7.reversed(list):倒置列表中的元素位置 
+9.list.extend(seq):把序列seq的内容添加到list中 
+10.list.insert(index,obj):在索引量为index的地方插入obj对象 
+11.list.pop(index=-1):删除并返回指定位置的对象，默认是最后一个对象 
+12.list.remove(obj):从list中删除obj对象。
+
+元组tuple
+
+可以包含不同类型的对象，但是是不可变的，不可以在增减元素，用()来定义 eg:aTuple=(123,’abc’,4.56,[‘inner’,’list’],7-9j) 
+方法 
+1.tuple(obj):将对象obj转换成tuple对象，obj可以是任意字符串或者列表 
+2.适用于列表的del,cmp,len,max,min方法也适用于tuple，但是由于元祖是不可变的，替换、添加、排序等不可实现
+
+字典dict
+
+键值对，用{}来定义 eg:aDict={‘name’:’cynthia’,’age’:18} 
+方法 
+1.dict1=dict(([‘x’,1],[‘y’,2])):dict()创建字典 
+2.dict1={}.fromkeys((‘x’,’y’),-1):fromkeys()创建一个默认字典，字典中元素具有相同的值 
+3.dict1.keys():获取字典的键值列表 
+4.dict1.has_key(‘x’):判断字典中是否有‘x’键值，返回bool型 
+5.dict.get(key,default):返回键值key的值，若是key不存在，返回default的值 
+6.dict.items():返回键值对列表值 
+7.dict.values():返回字典中所有值的列表 
+8.dict.update(dict2):将dict2的键值对列表添加到字典dict中去 
+9.dict.pop(key)：返回键值key的value 
+10.setdefault():类似get方法，能够获得给定key的value，此外setdefault还能在自动重不含有给定key的情况下设定相应的key-value 
+11.clear():清除字典中所有的项。原地操作，无返回(或说返回值为None） 
+12.copy():返回具有相同key-value的新字典，为浅复制(shallow copy)
+'''
+#129如何删除一个list中的元素，如何删除dict中的一段kv
+'''
+list删除：
+    list.remove()有元素删除成功，没有报错
+    list.pop()有元素删除成功，没有删除最后一个元素
+dict删除:
+    dict.pop()有key删除，
+    dict.popitem()删除后返回被删除的k，v
+'''
+#130如何查找一个字符串中的特定字符？find（）和indexof（）两个函数哟什么差异
+'''
+li="12345678123411"
+print(li.find('2'))
+
+返回下角标，但是python中没有indexof
+# print(li.indexOf('1'))
+'''
+#131python中使用过哪些三方健：
+'''
+    爬虫类:Scrapy,beautfulesoup，requests
+    web类：tornado,Django
+    数据类：numpy，pandas
+'''
+
+#132描述一下MVC架构：
+'''
+module-view-control
+数据-试图-控制器架构：
+module负责数据的存储过程
+view负责返回给用户的数据操作。
+control负责监控用户发送的信息
+'''
+
+#133描述一下表与视图的理解
+'''
+      1、视图是已经编译好的sql语句。而表不是  
+      2、视图没有实际的物理记录。而表有。
+      3、表是内容，视图是窗口
+      4、表只用物理空间而视图不占用物理空间，视图只是逻辑概念的存在，表可以及时对它进行修改，但视图只能有创建的语句来修改
+      5、表是内模式，视图是外模式
+      6、视图是查看数据表的一种方法，可以查询数据表中某些字段构成的数据，只是一些SQL语句的集合。从安全的角度说，视图可以不给用户接触数据表，从而不知道表结构。
+      7、表属于全局模式中的表，是实表；视图属于局部模式的表，是虚表。 
+      8、视图的建立和删除只影响视图本身，不影响对应的基本表。
+'''
+
+#134 索引有什么作用，有哪些分类，有什么好处和坏处？
+'''
+简单的说，索引就好比一本书的目录，你只要浏览标题就可以快速的找到具体内容是放在哪一页的。也就是说用SELECT查找时不用直接去搜索表，只要查找索引，就可以直接定位到你想查找的内容位置。
+索引带来的方便不是免费的，是以每次插入或更新（相当于删除并插入）时都要维护索引为代价的。
+所以如果一张表更多是用于查询而很少插入，那么就可以建立尽量多的索引以优化查询性能。相反如果一张表要经常插入或更新，则尽可能少用索引，有时甚至连主键都不建。
+'''
